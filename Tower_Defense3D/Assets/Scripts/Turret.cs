@@ -8,7 +8,7 @@ public class Turret : MonoBehaviour
     private Transform target;
     [Header("Attriburtes")]
     public float fireRate = 1f;
-    public float fireCountdown = 0f;
+    private float fireCountdown = 0f;
     public float range = 15f;
     [Header("Unity Setup Fields")]
     public Transform partToRotate;

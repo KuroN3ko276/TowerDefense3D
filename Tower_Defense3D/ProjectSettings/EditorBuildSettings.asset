@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Tower_defense.unity
+    path: Assets/Scenes/Main_scene.unity
     guid: 03ea7d9f3e08f6a448c6794155ee81f0
   m_configObjects: {}

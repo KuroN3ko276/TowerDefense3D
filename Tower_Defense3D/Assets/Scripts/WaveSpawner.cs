@@ -8,7 +8,8 @@ using System;
 
 public class WaveSpawner : MonoBehaviour
 {
-    public Transform enemyPrefab;
+    public static int EnmiesAlive = 0;
+    public Wave[] waves;
     public Transform spawnPoint;
     public float timeBetweenWaves = 5f;
     private float countdown = 2f;
@@ -17,11 +18,16 @@ public class WaveSpawner : MonoBehaviour
 
     private void Update()
     {
+        if(EnmiesAlive > 0)
+        {
+            return;
+        }
         //Debug.Log("GameManage");
         if (countdown <= 0)
         {
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
+            return;
         }
         countdown -= Time.deltaTime;
         countdown = Mathf.Clamp(countdown, 0, Mathf.Infinity);
@@ -30,19 +36,24 @@ public class WaveSpawner : MonoBehaviour
 
     private IEnumerator SpawnWave()
     {
-        waveIndex++;
         PlayerStats.Rounds++;
-        for(int i = 0; i < waveIndex;i++)
+        Wave wave = waves[waveIndex];
+        for(int i = 0; i < wave.count;i++)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(0.5f);
+            SpawnEnemy(wave.enemy);
+            yield return new WaitForSeconds(1f/wave.rate);
         }
-
+        waveIndex++;
+        if(waveIndex == waves.Length)
+        {
+            Debug.Log("LEVEL WON!!!");
+            this.enabled = false;
+        }
     }
 
-    private void SpawnEnemy()
+    private void SpawnEnemy(GameObject enemy)
     {
-        Instantiate(enemyPrefab,spawnPoint.position,spawnPoint.rotation);
-
+        Instantiate(enemy,spawnPoint.position,spawnPoint.rotation);
+        EnmiesAlive++;
     }
 }

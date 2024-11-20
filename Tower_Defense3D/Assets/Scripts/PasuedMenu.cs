@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class PasuedMenu : MonoBehaviour
 {
     public GameObject ui;
+    public string menuSceneName = "MainMenu";
+    public SceneFader sceneFader;
     // Update is called once per frame
     void Update()
     {
@@ -27,10 +29,11 @@ public class PasuedMenu : MonoBehaviour
     public void Retry()
     {
         Toggle();
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        sceneFader.FadeTo(SceneManager.GetActiveScene().name);
     }
     public void Menu()
     {
-        Debug.Log("Go to Menu");
+        Toggle();
+        sceneFader.FadeTo(menuSceneName);
     }
 }

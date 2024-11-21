@@ -12,8 +12,9 @@ public class EnemyManagement : MonoBehaviour
     public int worth = 50;
     public GameObject deathEffect;
 
-    [Header("Unity Staff")]
+    [Header("Unity Stuff")]
     public Image healthBar; // Đảm bảo rằng healthBar là một đối tượng Image
+    private bool isDeath = false;
 
     private void Start()
     {
@@ -26,7 +27,7 @@ public class EnemyManagement : MonoBehaviour
         health -= amount;
         healthBar.fillAmount = health / startHealth;
 
-        if (health <= 0) 
+        if (health <= 0 && !isDeath) 
         {
             Die();
         }
@@ -40,6 +41,7 @@ public class EnemyManagement : MonoBehaviour
 
     private void Die()
     {
+        isDeath = true;
         PlayerStats.Money += worth;
         GameObject effect = Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);

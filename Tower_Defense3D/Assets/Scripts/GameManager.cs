@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static bool isGameOver = false;
     public GameObject gameOverUI;
+    public GameObject completeLevelUI;
+    
+    //public SceneFader sceneFader;
     void Start()
     {
         isGameOver = false ;
@@ -28,5 +31,10 @@ public class GameManager : MonoBehaviour
         isGameOver = true;
         Debug.Log("Game Over");
         gameOverUI.SetActive(true);
+    }
+    public void WinLevel()
+    {
+        isGameOver = true;
+        completeLevelUI.SetActive(true);
     }
 }
